@@ -20,7 +20,7 @@ export function Footer() {
             <p className="text-sm text-white/80">Phone placeholder</p>
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-            <Link href="/" className="py-2 text-white/80 transition-colors hover:text-accent-gold-bright min-h-[44px] flex items-center">
+            <Link href="/about" className="py-2 text-white/80 transition-colors hover:text-accent-gold-bright min-h-[44px] flex items-center">
               About
             </Link>
             <Link href="/contact" className="py-2 text-white/80 transition-colors hover:text-accent-gold-bright min-h-[44px] flex items-center">

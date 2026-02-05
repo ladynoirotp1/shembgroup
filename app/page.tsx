@@ -6,9 +6,9 @@ const CATEGORIES = [
   { name: "Halal Meat", image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&q=80" },
   { name: "Dairy", image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80" },
   { name: "Dry Goods", image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80" },
-  { name: "Beverages", image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80" },
+  { name: "Drinks", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&q=80" },
   { name: "Oil & Spices", image: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=400&q=80" },
-  { name: "Disposables", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" },
+  { name: "Packaging & takeaway", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80" },
 ];
 
 export default function Home() {
@@ -26,8 +26,9 @@ export default function Home() {
           }}
         />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
-            <div className="text-center lg:text-left">
+          <AnimateInSection>
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
+              <div className="text-center lg:text-left">
               <p className="mb-4 inline-flex items-center gap-2 rounded-none border border-brand-primary/20 bg-brand-muted px-4 py-1.5 text-sm font-medium text-brand-primary">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-gold-bright" />
                 Halal • Trusted • Wholesale
@@ -63,7 +64,8 @@ export default function Home() {
                 priority
               />
             </div>
-          </div>
+            </div>
+          </AnimateInSection>
         </div>
       </section>
 
@@ -93,12 +95,20 @@ export default function Home() {
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Simple ordering, reliable delivery, and trusted halal standards. Get in touch to see how we can support your business.
               </p>
-              <Link
-                href="/contact"
-                className="mt-6 inline-flex h-11 items-center justify-center rounded-none bg-brand-primary px-6 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-primary-hover hover:-translate-y-0.5"
-              >
-                Contact us
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link
+                  href="/about"
+                  className="inline-flex h-11 items-center justify-center rounded-none bg-brand-primary px-6 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-primary-hover hover:-translate-y-0.5"
+                >
+                  Our story
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex h-11 items-center justify-center rounded-none border-2 border-zinc-300 bg-white px-6 text-sm font-semibold text-zinc-700 transition-all duration-200 hover:border-brand-primary hover:text-brand-primary hover:-translate-y-0.5"
+                >
+                  Contact us
+                </Link>
+              </div>
             </div>
           </div>
         </AnimateInSection>
@@ -189,7 +199,7 @@ export default function Home() {
             Ready to get started?
           </h2>
           <p className="mt-3 text-lg text-zinc-600">
-            Get in touch for wholesale enquiries and partnership opportunities.
+            Get in touch for wholesale inquiries and partnership opportunities.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link

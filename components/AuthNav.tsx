@@ -70,6 +70,7 @@ export function AuthNav({ isOwnerSession, variant = "desktop", onNavigate }: Aut
     return (
       <div className={variant === "mobile" ? "flex flex-col" : "flex items-center gap-7 text-sm font-medium text-zinc-400"}>
         <Link href="/" className={linkClass} onClick={onNavigate}>Home</Link>
+        <Link href="/about" className={linkClass} onClick={onNavigate}>About</Link>
         <Link href="/promotions" className={linkClass} onClick={onNavigate}>Promotions</Link>
         <Link href="/contact" className={linkClass} onClick={onNavigate}>Contact</Link>
       </div>
@@ -80,6 +81,9 @@ export function AuthNav({ isOwnerSession, variant = "desktop", onNavigate }: Aut
     <div className={variant === "mobile" ? "flex flex-col" : "flex items-center gap-7 text-sm font-medium"}>
       <Link href="/" className={linkClass} onClick={onNavigate}>
         Home
+      </Link>
+      <Link href="/about" className={linkClass} onClick={onNavigate}>
+        About
       </Link>
       <Link href="/promotions" className={linkClass} onClick={onNavigate}>
         Promotions

@@ -3,7 +3,7 @@ import { AnimateInSection } from "@/components/AnimateIn";
 
 export const metadata = {
   title: "Contact | SHEMB Group",
-  description: "Get in touch for wholesale enquiries and partnership opportunities.",
+  description: "Get in touch for wholesale inquiries and partnership opportunities.",
 };
 
 export default function ContactPage() {
@@ -18,11 +18,11 @@ export default function ContactPage() {
             Get in touch
           </h1>
           <p className="mt-4 text-lg text-zinc-600">
-            Wholesale enquiries and partnership opportunities. We’ll respond as soon as we can.
+            Wholesale inquiries and partnership opportunities. We’ll respond as soon as we can.
           </p>
           <div className="mt-10 rounded-lg border border-brand-primary/10 bg-brand-light/50 p-8 sm:p-10 ring-1 ring-black/5">
             <div className="flex flex-col gap-4 text-zinc-600 sm:flex-row sm:flex-wrap sm:gap-8">
-              <p>Address placeholder — update when available</p>
+              <p>Address placeholder (update when available)</p>
               <a
                 href="mailto:info@shembgroup.com"
                 className="font-semibold text-brand-primary transition-colors hover:text-brand-primary-hover"

@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "SHEMB Group",
-  description: "Halal wholesale food distribution — your trusted partner for restaurants, caterers, and retailers.",
+  description: "Wholesale food distribution for restaurants, caterers, and retailers.",
 };
 
 export const viewport: Viewport = {

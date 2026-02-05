@@ -72,13 +72,15 @@ body {
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-in-view.is-visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 .animate-in-view.stagger-1 { transition-delay: 0.05s; }
