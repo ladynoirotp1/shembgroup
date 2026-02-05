@@ -25,3 +25,4 @@ alter table public.profiles add column if not exists email text;
 create or replace function public.is_owner() returns boolean language sql security definer set search_path = public stable as $$ select exists (select 1 from public.profiles p where p.user_id = auth.uid() and p.role = 'owner'); $$;
 create policy "Owners can read all profiles" on public.profiles for select using (public.is_owner());
 create policy "Owners can update any profile" on public.profiles for update using (public.is_owner());
+create policy "Owners can delete client profiles" on public.profiles for delete using (public.is_owner());

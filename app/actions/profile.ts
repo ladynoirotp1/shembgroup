@@ -310,3 +310,50 @@ export async function rejectProfile(profileId: string): Promise<{ ok: boolean; e
   revalidatePath("/admin");
   return { ok: true };
 }
+
+/** Owner only: delete a profile (e.g. remove rejected applications from the list). */
+export async function deleteProfile(profileId: string): Promise<{ ok: boolean; error?: string }> {
+  const isOwnerSession = await getOwnerSession();
+  if (isOwnerSession) {
+    const supabase = createServiceRoleClient();
+    if (!supabase) return { ok: false, error: "SUPABASE_SERVICE_ROLE_KEY not set in .env.local" };
+    const { error } = await supabase
+      .from("profiles")
+      // @ts-expect-error - Supabase client without Database generic infers never for delete
+      .delete()
+      .eq("id", profileId)
+      .eq("role", "client");
+    if (error) {
+      console.error("deleteProfile error:", error);
+      return { ok: false, error: error.message };
+    }
+    revalidatePath("/admin");
+    return { ok: true };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "Not logged in" };
+
+  const { data: myProfile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("user_id", user.id)
+    .single();
+  if (myProfile?.role !== "owner") return { ok: false, error: "Not authorized" };
+
+  const { error } = await supabase
+    .from("profiles")
+    .delete()
+    .eq("id", profileId)
+    .eq("role", "client");
+
+  if (error) {
+    console.error("deleteProfile error:", error);
+    return { ok: false, error: error.message };
+  }
+  revalidatePath("/admin");
+  return { ok: true };
+}
