@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --brand-primary: #0d5c3d;
+  --brand-primary-hover: #0a4a30;
+  --brand-light: #e8f5f0;
+  --brand-muted: #0d5c3d1a;
+  /* Gold from logo (Pakistani accent) — use for highlights and variety */
+  --accent-gold: #c9a227;
+  --accent-gold-bright: #f4c430;
+  --accent-gold-hover: #d4af37;
+  --accent-gold-muted: #f4c43022;
+  --warm-bg: #faf8f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-light: var(--brand-light);
+  --color-brand-muted: var(--brand-muted);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-gold-bright: var(--accent-gold-bright);
+  --color-accent-gold-hover: var(--accent-gold-hover);
+  --color-accent-gold-muted: var(--accent-gold-muted);
+  --color-warm-bg: var(--warm-bg);
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-in-view {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.animate-in-view.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-in-view.stagger-1 { transition-delay: 0.05s; }
+.animate-in-view.stagger-2 { transition-delay: 0.1s; }
+.animate-in-view.stagger-3 { transition-delay: 0.15s; }
+.animate-in-view.stagger-4 { transition-delay: 0.2s; }
+.animate-in-view.stagger-5 { transition-delay: 0.25s; }
+.animate-in-view.stagger-6 { transition-delay: 0.3s; }
+
+/* Card hover: subtle lift and shadow */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgb(0 0 0 / 0.12);
+}
