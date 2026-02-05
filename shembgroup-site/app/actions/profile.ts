@@ -229,6 +229,7 @@ export async function approveProfile(profileId: string): Promise<{ ok: boolean; 
     if (!supabase) return { ok: false, error: "SUPABASE_SERVICE_ROLE_KEY not set in .env.local" };
     const { error } = await supabase
       .from("profiles")
+      // @ts-expect-error - Supabase client without Database generic infers never for update
       .update({ approval_status: "approved" })
       .eq("id", profileId);
     if (error) {
@@ -273,6 +274,7 @@ export async function rejectProfile(profileId: string): Promise<{ ok: boolean; e
     if (!supabase) return { ok: false, error: "SUPABASE_SERVICE_ROLE_KEY not set in .env.local" };
     const { error } = await supabase
       .from("profiles")
+      // @ts-expect-error - Supabase client without Database generic infers never for update
       .update({ approval_status: "rejected" })
       .eq("id", profileId);
     if (error) {

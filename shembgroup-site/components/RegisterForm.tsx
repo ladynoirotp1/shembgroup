@@ -21,7 +21,7 @@ export function RegisterForm() {
     setLoading(true);
 
     let err: { message: string } | null = null;
-    let data: Awaited<ReturnType<ReturnType<typeof createClient>["auth"]["signUp"]>>["data"] = null;
+    let data: Awaited<ReturnType<ReturnType<typeof createClient>["auth"]["signUp"]>>["data"] | null = null;
 
     try {
       const supabase = createClient();
