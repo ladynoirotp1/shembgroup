@@ -1,14 +1,9 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import {
-  getProfile,
-  getPendingProfiles,
-  getProfilesForAdmin,
-  approveProfile,
-  rejectProfile,
-} from "@/app/actions/profile";
+import { getOwnerSession } from "@/lib/owner-session";
+import { getPendingProfiles, getProfilesForAdmin, isAdminBackendConfigured } from "@/app/actions/profile";
 import { AdminApprovalList } from "./AdminApprovalList";
 import { AdminCustomersList } from "./AdminCustomersList";
+import { AdminOwnerBar } from "./AdminOwnerBar";
 
 export const metadata = {
   title: "Admin | Shemb Group",
@@ -16,23 +11,26 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const profile = await getProfile();
-  const isOwner = profile?.role === "owner";
+  const isOwner = await getOwnerSession();
+  if (!isOwner) redirect("/owner-login");
 
-  if (!profile) {
-    redirect("/login");
-  }
-  if (!isOwner) {
-    redirect("/account");
-  }
-
-  const [pending, allCustomers] = await Promise.all([
+  const [pending, allCustomers, backendOk] = await Promise.all([
     getPendingProfiles(),
     getProfilesForAdmin(),
+    isAdminBackendConfigured(),
   ]);
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans">
+      {!backendOk && (
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">
+          Add <code className="rounded bg-amber-100 px-1 font-mono">SUPABASE_SERVICE_ROLE_KEY</code> to{" "}
+          <code className="rounded bg-amber-100 px-1 font-mono">.env.local</code> and restart the dev server to load approvals and customers.{" "}
+          <a href="https://supabase.com/dashboard/project/_/settings/api" target="_blank" rel="noopener noreferrer" className="underline">
+            Get the key in Supabase → Project Settings → API → service_role
+          </a>
+        </div>
+      )}
       <div className="border-b border-zinc-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -42,12 +40,7 @@ export default async function AdminPage() {
                 Approve signups and manage customers.
               </p>
             </div>
-            <Link
-              href="/"
-              className="rounded-none border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
-            >
-              Back to site
-            </Link>
+            <AdminOwnerBar />
           </div>
         </div>
       </div>

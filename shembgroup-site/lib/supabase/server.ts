@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 export async function createClient() {
@@ -24,4 +25,12 @@ export async function createClient() {
       },
     }
   );
+}
+
+/** Server-only. Bypasses RLS. Use only when owner is authenticated via cookie. Returns null if key not set. */
+export function createServiceRoleClient(): ReturnType<typeof createSupabaseClient> | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key?.trim()) return null;
+  return createSupabaseClient(url, key);
 }

@@ -1,6 +1,7 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createServiceRoleClient } from "@/lib/supabase/server";
+import { getOwnerSession } from "@/lib/owner-session";
 import { revalidatePath } from "next/cache";
 
 export type ApprovalStatus = "pending" | "approved" | "rejected";
@@ -31,7 +32,9 @@ export async function getProfile(): Promise<Profile | null> {
     .single();
 
   if (error && error.code !== "PGRST116") {
-    console.error("getProfile error:", error);
+    const code = (error as { code?: string }).code;
+    const message = (error as { message?: string }).message;
+    console.error(`getProfile error: code=${code} message=${message}`);
     return null;
   }
   return data as Profile | null;
@@ -92,7 +95,9 @@ export async function ensureOwnerProfile(): Promise<boolean> {
     );
 
   if (error) {
-    console.error("ensureOwnerProfile error:", error);
+    const code = (error as { code?: string }).code;
+    const message = (error as { message?: string }).message;
+    console.error(`ensureOwnerProfile error: code=${code} message=${message}`);
     return false;
   }
   revalidatePath("/admin");
@@ -121,8 +126,25 @@ export async function getMyRole(): Promise<ProfileRole | null> {
   return profile?.role ?? null;
 }
 
-/** Owner only: list profiles pending approval. */
+/** Owner only: list profiles pending approval (cookie owner or Supabase owner). */
 export async function getPendingProfiles(): Promise<Profile[]> {
+  const isOwnerSession = await getOwnerSession();
+  if (isOwnerSession) {
+    const supabase = createServiceRoleClient();
+    if (!supabase) return [];
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("approval_status", "pending")
+      .eq("role", "client")
+      .order("created_at", { ascending: false });
+    if (error) {
+      console.error("getPendingProfiles error:", error.message, error.code, error.details);
+      return [];
+    }
+    return (data ?? []) as Profile[];
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -144,14 +166,30 @@ export async function getPendingProfiles(): Promise<Profile[]> {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("getPendingProfiles error:", error);
+    console.error("getPendingProfiles error:", error.message, error.code, error.details);
     return [];
   }
   return (data ?? []) as Profile[];
 }
 
-/** Owner only: list all client profiles (for customers list). */
+/** Owner only: list all client profiles (cookie owner or Supabase owner). */
 export async function getProfilesForAdmin(): Promise<Profile[]> {
+  const isOwnerSession = await getOwnerSession();
+  if (isOwnerSession) {
+    const supabase = createServiceRoleClient();
+    if (!supabase) return [];
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("role", "client")
+      .order("created_at", { ascending: false });
+    if (error) {
+      console.error("getProfilesForAdmin error:", error.message, error.code, error.details);
+      return [];
+    }
+    return (data ?? []) as Profile[];
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -172,14 +210,35 @@ export async function getProfilesForAdmin(): Promise<Profile[]> {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("getProfilesForAdmin error:", error);
+    console.error("getProfilesForAdmin error:", error.message, error.code, error.details);
     return [];
   }
   return (data ?? []) as Profile[];
 }
 
-/** Owner only: set a profile to approved. */
+/** Whether the admin backend can load data (service role key is set). */
+export async function isAdminBackendConfigured(): Promise<boolean> {
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
+}
+
+/** Owner only: set a profile to approved (cookie owner or Supabase owner). */
 export async function approveProfile(profileId: string): Promise<{ ok: boolean; error?: string }> {
+  const isOwnerSession = await getOwnerSession();
+  if (isOwnerSession) {
+    const supabase = createServiceRoleClient();
+    if (!supabase) return { ok: false, error: "SUPABASE_SERVICE_ROLE_KEY not set in .env.local" };
+    const { error } = await supabase
+      .from("profiles")
+      .update({ approval_status: "approved" })
+      .eq("id", profileId);
+    if (error) {
+      console.error("approveProfile error:", error);
+      return { ok: false, error: error.message };
+    }
+    revalidatePath("/admin");
+    return { ok: true };
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -206,8 +265,24 @@ export async function approveProfile(profileId: string): Promise<{ ok: boolean; 
   return { ok: true };
 }
 
-/** Owner only: set a profile to rejected. */
+/** Owner only: set a profile to rejected (cookie owner or Supabase owner). */
 export async function rejectProfile(profileId: string): Promise<{ ok: boolean; error?: string }> {
+  const isOwnerSession = await getOwnerSession();
+  if (isOwnerSession) {
+    const supabase = createServiceRoleClient();
+    if (!supabase) return { ok: false, error: "SUPABASE_SERVICE_ROLE_KEY not set in .env.local" };
+    const { error } = await supabase
+      .from("profiles")
+      .update({ approval_status: "rejected" })
+      .eq("id", profileId);
+    if (error) {
+      console.error("rejectProfile error:", error);
+      return { ok: false, error: error.message };
+    }
+    revalidatePath("/admin");
+    return { ok: true };
+  }
+
   const supabase = await createClient();
   const {
     data: { user },

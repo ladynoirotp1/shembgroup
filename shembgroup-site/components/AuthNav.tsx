@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { getMyRole } from "@/app/actions/profile";
+import { ownerLogoutAction } from "@/app/actions/owner-logout";
 import type { User } from "@supabase/supabase-js";
 
-export function AuthNav() {
+type AuthNavProps = { isOwnerSession: boolean };
+
+export function AuthNav({ isOwnerSession }: AuthNavProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<string | null>(null);
@@ -75,7 +78,24 @@ export function AuthNav() {
       >
         Promotions
       </Link>
-      {user ? (
+      {isOwnerSession ? (
+        <>
+          <Link
+            href="/admin"
+            className="text-zinc-600 transition-colors hover:text-brand-primary"
+          >
+            Admin
+          </Link>
+          <form action={ownerLogoutAction} className="inline">
+            <button
+              type="submit"
+              className="text-zinc-600 transition-colors hover:text-brand-primary"
+            >
+              Log out
+            </button>
+          </form>
+        </>
+      ) : user ? (
         <>
           {role === "owner" && (
             <Link
@@ -112,6 +132,12 @@ export function AuthNav() {
             className="text-zinc-600 transition-colors hover:text-brand-primary"
           >
             Register
+          </Link>
+          <Link
+            href="/owner-login"
+            className="text-zinc-600 transition-colors hover:text-brand-primary"
+          >
+            Owner login
           </Link>
         </>
       )}
