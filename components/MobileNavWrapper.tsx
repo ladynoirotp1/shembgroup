@@ -30,7 +30,7 @@ export function MobileNavWrapper({ isOwnerSession }: MobileNavWrapperProps) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none text-zinc-600 hover:bg-zinc-100 hover:text-brand-primary md:hidden"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none text-zinc-600 hover:bg-zinc-100 hover:text-brand-primary dark:text-foreground-muted dark:hover:bg-brand-light md:hidden"
         aria-label="Open menu"
         aria-expanded={open}
       >
@@ -48,17 +48,17 @@ export function MobileNavWrapper({ isOwnerSession }: MobileNavWrapperProps) {
             onClick={() => setOpen(false)}
           />
           <div
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-sm overflow-y-auto bg-white shadow-xl md:hidden"
+            className="fixed inset-y-0 right-0 z-50 w-full max-w-sm overflow-y-auto bg-white dark:bg-background shadow-xl md:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
           >
-            <div className="flex h-16 items-center justify-between border-b border-zinc-200 px-4">
-              <span className="text-lg font-semibold text-zinc-900">Menu</span>
+            <div className="flex h-16 items-center justify-between border-b border-zinc-200 dark:border-border px-4">
+              <span className="text-lg font-semibold text-zinc-900 dark:text-foreground">Menu</span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-none text-zinc-600 hover:bg-zinc-100 hover:text-brand-primary"
+                className="flex h-10 w-10 items-center justify-center rounded-none text-zinc-600 hover:bg-zinc-100 hover:text-brand-primary dark:text-foreground-muted dark:hover:bg-brand-light"
                 aria-label="Close menu"
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

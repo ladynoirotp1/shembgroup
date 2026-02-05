@@ -19,8 +19,9 @@ create or replace function public.set_updated_at() returns trigger as $$ begin n
 drop trigger if exists profiles_updated_at on public.profiles;
 create trigger profiles_updated_at before update on public.profiles for each row execute function public.set_updated_at();
 
--- 002: role + email + owner policies
+-- 002: role + email + owner policies (uses is_owner() to avoid RLS recursion)
 alter table public.profiles add column if not exists role text not null default 'client' check (role in ('client', 'owner'));
 alter table public.profiles add column if not exists email text;
-create policy "Owners can read all profiles" on public.profiles for select using (exists (select 1 from public.profiles p where p.user_id = auth.uid() and p.role = 'owner'));
-create policy "Owners can update any profile" on public.profiles for update using (exists (select 1 from public.profiles p where p.user_id = auth.uid() and p.role = 'owner'));
+create or replace function public.is_owner() returns boolean language sql security definer set search_path = public stable as $$ select exists (select 1 from public.profiles p where p.user_id = auth.uid() and p.role = 'owner'); $$;
+create policy "Owners can read all profiles" on public.profiles for select using (public.is_owner());
+create policy "Owners can update any profile" on public.profiles for update using (public.is_owner());

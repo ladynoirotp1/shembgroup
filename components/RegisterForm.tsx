@@ -77,9 +77,9 @@ export function RegisterForm() {
 
   if (success) {
     return (
-      <div className="mt-10 rounded-lg border border-zinc-200 bg-brand-light/30 p-8 text-center">
+      <div className="mt-10 rounded-2xl border border-zinc-200/80 dark:border-border bg-brand-light/30 dark:bg-brand-light/20 p-8 text-center shadow-soft">
         <p className="font-semibold text-brand-primary">Check your email</p>
-        <p className="mt-2 text-sm text-zinc-600">
+        <p className="mt-2 text-sm text-zinc-600 dark:text-foreground-muted">
           We sent a confirmation link to <strong>{email}</strong>. Click the link to activate your account, then sign in and go to Account to see your approval status.
         </p>
         <Link
@@ -88,7 +88,7 @@ export function RegisterForm() {
         >
           Go to login
         </Link>
-        <p className="mt-6 text-sm text-zinc-500">
+        <p className="mt-6 text-sm text-zinc-500 dark:text-foreground-muted">
           <Link href="/" className="text-brand-primary hover:underline">
             Back to home
           </Link>
@@ -99,16 +99,16 @@ export function RegisterForm() {
 
   return (
     <form
-      className="mt-10 space-y-6 rounded-lg border border-zinc-200 bg-white p-8 shadow-sm"
+      className="mt-10 space-y-6 rounded-2xl border border-zinc-200/80 dark:border-border bg-white dark:bg-brand-light p-8 shadow-soft"
       onSubmit={handleSubmit}
     >
       {error && (
-        <div className="rounded-none border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <div className="rounded-none border border-red-200 dark:border-red-900/80 bg-red-50 dark:bg-red-950/80 px-4 py-3 text-sm text-red-800 dark:text-red-300">
           {error}
         </div>
       )}
       <div>
-        <label htmlFor="reg-company" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="reg-company" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Company name
         </label>
         <input
@@ -117,11 +117,11 @@ export function RegisterForm() {
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           placeholder="Your business name"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 dark:placeholder-foreground-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <div>
-        <label htmlFor="reg-email" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="reg-email" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Email
         </label>
         <input
@@ -132,11 +132,11 @@ export function RegisterForm() {
           required
           autoComplete="email"
           placeholder="you@company.com"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 dark:placeholder-foreground-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <div>
-        <label htmlFor="reg-password" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="reg-password" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Password
         </label>
         <input
@@ -147,9 +147,9 @@ export function RegisterForm() {
           required
           minLength={6}
           autoComplete="new-password"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 dark:placeholder-foreground-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
-        <p className="mt-1 text-xs text-zinc-500">At least 6 characters</p>
+        <p className="mt-1 text-xs text-zinc-500 dark:text-foreground-muted">At least 6 characters</p>
       </div>
       <button
         type="submit"
@@ -158,13 +158,13 @@ export function RegisterForm() {
       >
         {loading ? "Creating account…" : "Create account"}
       </button>
-      <p className="text-sm text-zinc-600">
+      <p className="text-sm text-zinc-600 dark:text-foreground-muted">
         Already have an account?{" "}
         <Link href="/login" className="font-semibold text-brand-primary hover:underline">
           Login
         </Link>
       </p>
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-zinc-500 dark:text-foreground-muted">
         <Link href="/" className="text-brand-primary hover:underline">
           Back to home
         </Link>

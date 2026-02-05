@@ -59,71 +59,46 @@ export function AuthNav({ isOwnerSession, variant = "desktop", onNavigate }: Aut
 
   const linkClass =
     variant === "mobile"
-      ? "block py-4 px-4 text-base font-medium text-zinc-700 transition-colors hover:text-brand-primary hover:bg-zinc-50 min-h-[44px] flex items-center rounded-none border-b border-zinc-100"
-      : "text-zinc-600 transition-colors hover:text-brand-primary";
+      ? "block py-4 px-4 text-base font-medium text-zinc-700 dark:text-foreground-muted transition-colors hover:text-brand-primary hover:bg-zinc-50 dark:hover:bg-brand-light min-h-[44px] flex items-center rounded-none border-b border-zinc-100 dark:border-border"
+      : "text-zinc-600 dark:text-foreground-muted transition-colors hover:text-brand-primary";
   const buttonClass =
     variant === "mobile"
-      ? "block w-full text-left py-4 px-4 text-base font-medium text-zinc-700 transition-colors hover:text-brand-primary hover:bg-zinc-50 min-h-[44px] flex items-center rounded-none border-b border-zinc-100"
-      : "text-zinc-600 transition-colors hover:text-brand-primary";
+      ? "block w-full text-left py-4 px-4 text-base font-medium text-zinc-700 dark:text-foreground-muted transition-colors hover:text-brand-primary hover:bg-zinc-50 dark:hover:bg-brand-light min-h-[44px] flex items-center rounded-none border-b border-zinc-100 dark:border-border"
+      : "text-zinc-600 dark:text-foreground-muted transition-colors hover:text-brand-primary";
 
   if (loading) {
     return (
-      <div className={variant === "mobile" ? "flex flex-col" : "flex items-center gap-7 text-sm font-medium text-zinc-400"}>
+      <div className={variant === "mobile" ? "flex flex-col" : "flex flex-wrap items-center gap-5 text-sm font-medium text-zinc-400 dark:text-foreground-muted"}>
         <Link href="/" className={linkClass} onClick={onNavigate}>Home</Link>
         <Link href="/about" className={linkClass} onClick={onNavigate}>About</Link>
-        <Link href="/promotions" className={linkClass} onClick={onNavigate}>Promotions</Link>
         <Link href="/contact" className={linkClass} onClick={onNavigate}>Contact</Link>
       </div>
     );
   }
 
   return (
-    <div className={variant === "mobile" ? "flex flex-col" : "flex items-center gap-7 text-sm font-medium"}>
-      <Link href="/" className={linkClass} onClick={onNavigate}>
-        Home
-      </Link>
-      <Link href="/about" className={linkClass} onClick={onNavigate}>
-        About
-      </Link>
-      <Link href="/promotions" className={linkClass} onClick={onNavigate}>
-        Promotions
-      </Link>
+    <div className={variant === "mobile" ? "flex flex-col" : "flex flex-wrap items-center gap-5 text-sm font-medium"}>
+      <Link href="/" className={linkClass} onClick={onNavigate}>Home</Link>
+      <Link href="/about" className={linkClass} onClick={onNavigate}>About</Link>
       {isOwnerSession ? (
         <>
-          <Link href="/admin" className={linkClass} onClick={onNavigate}>
-            Admin
-          </Link>
-          <form action={ownerLogoutAction} className={variant === "mobile" ? "border-b border-zinc-100" : "inline"}>
-            <button type="submit" className={buttonClass}>
-              Log out
-            </button>
+          <Link href="/admin" className={linkClass} onClick={onNavigate}>Admin</Link>
+          <form action={ownerLogoutAction} className={variant === "mobile" ? "border-b border-zinc-100 dark:border-border" : "inline"}>
+            <button type="submit" className={buttonClass}>Log out</button>
           </form>
         </>
       ) : user ? (
         <>
           {role === "owner" && (
-            <Link href="/admin" className={linkClass} onClick={onNavigate}>
-              Admin
-            </Link>
+            <Link href="/admin" className={linkClass} onClick={onNavigate}>Admin</Link>
           )}
-          <Link href="/account" className={linkClass} onClick={onNavigate}>
-            Account
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              handleSignOut();
-              onNavigate?.();
-            }}
-            className={buttonClass}
-          >
+          <Link href="/account" className={linkClass} onClick={onNavigate}>Account</Link>
+          <button type="button" onClick={() => { handleSignOut(); onNavigate?.(); }} className={buttonClass}>
             Log out
           </button>
         </>
       ) : null}
-      <Link href="/contact" className={linkClass} onClick={onNavigate}>
-        Contact
-      </Link>
+      <Link href="/contact" className={linkClass} onClick={onNavigate}>Contact</Link>
     </div>
   );
 }

@@ -8,17 +8,17 @@ export const metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="font-sans bg-white">
+    <div className="font-sans bg-white dark:bg-background">
       <section className="py-20 sm:py-24">
         <AnimateInSection className="mx-auto max-w-md px-4 sm:px-6 lg:px-8">
           <span className="text-sm font-semibold uppercase tracking-wider text-brand-primary">
             Account
           </span>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-zinc-900">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-zinc-900 dark:text-foreground">
             Register
           </h1>
-          <p className="mt-2 text-zinc-600">
-            Create an account to access wholesale pricing, place orders, and receive promotions.
+          <p className="mt-2 text-zinc-600 dark:text-foreground-muted">
+            Create an account to access wholesale pricing and place orders.
           </p>
           <RegisterForm />
         </AnimateInSection>

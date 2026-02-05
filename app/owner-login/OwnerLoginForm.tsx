@@ -30,14 +30,14 @@ export function OwnerLoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6 rounded-lg border border-zinc-200 bg-white p-8 shadow-sm">
+    <form onSubmit={handleSubmit} className="mt-8 space-y-6 rounded-2xl border border-zinc-200/80 dark:border-border bg-white dark:bg-brand-light p-8 shadow-soft">
       {error && (
-        <div className="rounded-none border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <div className="rounded-none border border-red-200 dark:border-red-900/80 bg-red-50 dark:bg-red-950/80 px-4 py-3 text-sm text-red-800 dark:text-red-300">
           {error}
         </div>
       )}
       <div>
-        <label htmlFor="owner-email" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="owner-email" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Email
         </label>
         <input
@@ -46,11 +46,11 @@ export function OwnerLoginForm() {
           type="email"
           required
           autoComplete="email"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <div>
-        <label htmlFor="owner-password" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="owner-password" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Password
         </label>
         <input
@@ -59,7 +59,7 @@ export function OwnerLoginForm() {
           type="password"
           required
           autoComplete="current-password"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <button

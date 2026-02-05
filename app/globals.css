@@ -3,21 +3,28 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --foreground-muted: #52525b;
+  --border: #e4e4e7;
   --brand-primary: #0d5c3d;
   --brand-primary-hover: #0a4a30;
   --brand-light: #e8f5f0;
   --brand-muted: #0d5c3d1a;
-  /* Gold from logo (Pakistani accent) — use for highlights and variety */
   --accent-gold: #c9a227;
   --accent-gold-bright: #f4c430;
   --accent-gold-hover: #d4af37;
   --accent-gold-muted: #f4c43022;
   --warm-bg: #faf8f5;
+  --glow-soft: 0 0 50px -8px rgba(13, 92, 61, 0.35), 0 0 80px -16px rgba(13, 92, 61, 0.2);
+  --shadow-soft: 0 4px 24px -4px rgba(0, 0, 0, 0.08), 0 0 40px -8px rgba(13, 92, 61, 0.2);
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.06), 0 0 36px -8px rgba(13, 92, 61, 0.18);
+  --shadow-card-hover: 0 16px 48px -12px rgba(0, 0, 0, 0.1), 0 0 56px -8px rgba(13, 92, 61, 0.28);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-border: var(--border);
   --color-brand-primary: var(--brand-primary);
   --color-brand-primary-hover: var(--brand-primary-hover);
   --color-brand-light: var(--brand-light);
@@ -31,11 +38,25 @@
   --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode: black + green, white text, same layout as light. Professional contrast. */
+.dark {
+  --background: #000000;
+  --foreground: #ffffff;
+  --foreground-muted: #d0d0d0;
+  --border: #1a3d2a;
+  --brand-primary: #2d9d6b;
+  --brand-primary-hover: #38b878;
+  --brand-light: #0a1610;
+  --brand-muted: #1a7d5233;
+  --accent-gold: #d4af37;
+  --accent-gold-bright: #e8b82e;
+  --accent-gold-hover: #e5bc2e;
+  --accent-gold-muted: #f4c43028;
+  --warm-bg: #000000;
+  --glow-soft: 0 0 50px -8px rgba(45, 157, 107, 0.4), 0 0 90px -16px rgba(45, 157, 107, 0.25);
+  --shadow-soft: 0 4px 24px -4px rgba(0, 0, 0, 0.3), 0 0 40px -8px rgba(45, 157, 107, 0.25);
+  --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.25), 0 0 36px -8px rgba(45, 157, 107, 0.2);
+  --shadow-card-hover: 0 16px 48px -12px rgba(0, 0, 0, 0.35), 0 0 60px -8px rgba(45, 157, 107, 0.35);
 }
 
 html {
@@ -90,11 +111,41 @@ body {
 .animate-in-view.stagger-5 { transition-delay: 0.25s; }
 .animate-in-view.stagger-6 { transition-delay: 0.3s; }
 
-/* Card hover: subtle lift and shadow */
+/* Soft gradients and glow — casual yet professional */
+.soft-glow {
+  box-shadow: var(--glow-soft);
+}
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+.shadow-card-hover:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Card hover: soft lift and diffused glow */
 .hover-lift {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.35s ease;
+  box-shadow: var(--shadow-card);
 }
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px -8px rgb(0 0 0 / 0.12);
+  box-shadow: var(--shadow-card-hover);
 }
+
+/* Section soft gradient overlay — visible glow at top of hero sections */
+.section-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 70% at 50% -10%, rgba(13, 92, 61, 0.22) 0%, rgba(232, 245, 240, 0.5) 35%, transparent 65%);
+  opacity: 1;
+}
+.dark .section-glow::before {
+  background: radial-gradient(ellipse 100% 70% at 50% -10%, rgba(45, 157, 107, 0.28) 0%, rgba(10, 22, 16, 0.4) 40%, transparent 70%);
+  opacity: 1;
+}
+

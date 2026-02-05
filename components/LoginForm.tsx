@@ -51,16 +51,16 @@ export function LoginForm() {
 
   return (
     <form
-      className="mt-10 space-y-6 rounded-lg border border-zinc-200 bg-white p-8 shadow-sm"
+      className="mt-10 space-y-6 rounded-2xl border border-zinc-200/80 dark:border-border bg-white dark:bg-brand-light p-8 shadow-soft"
       onSubmit={handleSubmit}
     >
       {error && (
-        <div className="rounded-none border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <div className="rounded-none border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/50 px-4 py-3 text-sm text-red-800 dark:text-red-200">
           {error}
         </div>
       )}
       <div>
-        <label htmlFor="login-email" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="login-email" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Email
         </label>
         <input
@@ -71,11 +71,11 @@ export function LoginForm() {
           required
           autoComplete="email"
           placeholder="you@company.com"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 dark:placeholder-foreground-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <div>
-        <label htmlFor="login-password" className="block text-sm font-medium text-zinc-900">
+        <label htmlFor="login-password" className="block text-sm font-medium text-zinc-900 dark:text-foreground">
           Password
         </label>
         <input
@@ -85,7 +85,7 @@ export function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           required
           autoComplete="current-password"
-          className="mt-2 block w-full rounded-none border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder-zinc-400 focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+          className="mt-2 block w-full rounded-none border border-zinc-300 dark:border-border bg-white dark:bg-brand-light px-4 py-3 text-zinc-900 dark:text-foreground placeholder-zinc-400 dark:placeholder-foreground-muted focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
         />
       </div>
       <button
@@ -95,13 +95,13 @@ export function LoginForm() {
       >
         {loading ? "Signing in…" : "Sign in"}
       </button>
-      <p className="text-sm text-zinc-600">
+      <p className="text-sm text-zinc-600 dark:text-foreground-muted">
         Don’t have an account?{" "}
         <Link href="/register" className="font-semibold text-brand-primary hover:underline">
           Register
         </Link>
       </p>
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-zinc-500 dark:text-foreground-muted">
         <Link href="/" className="text-brand-primary hover:underline">
           Back to home
         </Link>
