@@ -37,7 +37,7 @@ export default function Home() {
                 Your trusted halal wholesale food partner
               </h1>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-zinc-600 lg:mx-0">
-                Quality halal products for restaurants, caterers, and retailers. Reliable supply, trusted standards.
+                Quality halal products sourced from Pakistan for restaurants, caterers, and retailers. Reliable supply, trusted standards.
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
@@ -90,7 +90,7 @@ export default function Home() {
                 Built for foodservice and retail
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-zinc-600">
-                SHEMB Group supplies halal food and related products to restaurants, caterers, hotels, and retailers. We focus on quality, traceability, and consistent supply so your business can serve customers with confidence.
+                SHEMB Group supplies halal food and related products sourced from Pakistan to restaurants, caterers, hotels, and retailers. We focus on quality, traceability, and consistent supply so your business can serve customers with confidence.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 Simple ordering, reliable delivery, and trusted halal standards. Get in touch to see how we can support your business.

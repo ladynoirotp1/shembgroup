@@ -21,7 +21,7 @@ export default function AboutPage() {
             Your trusted wholesale partner
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-            We supply quality food and related products to foodservice and retail so your business can serve with confidence.
+            We supply quality food and related products sourced from Pakistan to foodservice and retail so your business can serve with confidence.
           </p>
         </AnimateInSection>
       </section>
@@ -44,7 +44,7 @@ export default function AboutPage() {
                 What we do
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
-                SHEMB Group is a wholesale food distributor for restaurants, caterers, hotels, takeaways, and retailers. We supply meat, dairy, dry goods, drinks, oils and spices, and packaging so you can run your kitchen and your business.
+                SHEMB Group is a wholesale food distributor for restaurants, caterers, hotels, takeaways, and retailers. We supply meat, dairy, dry goods, drinks, oils and spices, and packaging sourced from Pakistan so you can run your kitchen and your business.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-zinc-600">
                 We focus on reliable supply, clear traceability, and straightforward ordering. Whether you need regular deliveries or one-off stock, we aim to be the partner you can depend on.
